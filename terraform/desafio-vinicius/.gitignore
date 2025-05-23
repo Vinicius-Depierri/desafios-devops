@@ -6,3 +6,6 @@ crash.log
 override.tf
 override.tf.json
 terraform.tfvars.json
+*.pem
+*.key
+*.pub
