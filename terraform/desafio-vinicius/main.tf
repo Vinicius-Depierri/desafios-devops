@@ -57,6 +57,38 @@ module "instance_desafio" {
   vpc_security_group_ids      = [module.sg_desafio.security_group_id]
   subnet_id                   = module.vpc.public_subnets[0]
   associate_public_ip_address = true
+  user_data = <<-EOF
+              #!/bin/bash
+              exec > /var/log/user-data.log 2>&1
+              set -x
+
+              # Atualiza pacotes
+              apt-get update -y
+
+              # Instala dependências
+              apt-get install -y \
+                apt-transport-https \
+                ca-certificates \
+                curl \
+                software-properties-common
+
+              # Adiciona GPG key e repositório do Docker
+              curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+              add-apt-repository \
+                "deb [arch=amd64] https://download.docker.com/linux/ubuntu noble stable"
+
+              apt-get update -y
+              apt-get install -y docker-ce docker-ce-cli containerd.io
+
+              # Habilita Docker
+              systemctl start docker
+              systemctl enable docker
+
+              # Executa container Apache
+              docker run -d -p 80:80 httpd
+              EOF
+  user_data_replace_on_change = true
+
 
   tags = {
     Name = "Instância Desafio"
