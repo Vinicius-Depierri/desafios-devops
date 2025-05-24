@@ -57,7 +57,7 @@ module "instance_desafio" {
   vpc_security_group_ids      = [module.sg_desafio.security_group_id]
   subnet_id                   = module.vpc.public_subnets[0]
   associate_public_ip_address = true
-  user_data = <<-EOF
+  user_data                   = <<-EOF
               #!/bin/bash
               exec > /var/log/user-data.log 2>&1
               set -x
