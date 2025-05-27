@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-desafio
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingresClassName: nginx
+  rules:
+    - http:
+        paths:
+          - pathType: Prefix
+            path: /desafio/vinicius
+            backend:
+              service:
+                name: service-desafio
+                port: 
+                  number: 3000
