@@ -2,14 +2,14 @@
 
 set -e
 
-APP_NAME="desafio-devops"
-IMAGE_NAME="${APP_NAME}:v1"
+GREEN='\033[1;32m'
+CHECK="\xE2\x9C\x94" 
 
 echo "Configurando Docker para usar o ambiente do Minikube..."
 eval $(minikube docker-env)
 
 echo "Construindo a imagem Docker..."
-docker build -t $IMAGE_NAME ../app
+docker build -t desafio-devops:v1 -f ../Dockerfile ../
 
 echo "Criando namespace..."
 kubectl apply -f namespace.yaml

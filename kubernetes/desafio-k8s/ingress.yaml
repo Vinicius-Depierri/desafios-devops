@@ -3,13 +3,15 @@ kind: Ingress
 metadata:
   name: ingress-desafio
   namespace: app-desafio
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: nginx
   rules:
     - http:
         paths:
           - pathType: Prefix
-            path: /
+            path: /desafio-devops
             backend:
               service:
                 name: service-desafio
