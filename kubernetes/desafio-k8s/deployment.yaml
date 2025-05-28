@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: deployment-desafio
+  namespace: app-desafio
 spec:
   selector:
     matchLabels:
@@ -16,17 +17,6 @@ spec:
         image: videpierri/desafio-devops:v1
         ports:
         - containerPort: 3000
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: service-desafio
-spec:
-  selector:
-    app: desafio
-  ports:
-  - port: 80
-    targetPort: 3000
-    name: http
-    protocol: TCP
-  type: NodePort
+        envFrom:
+          - configMapRef:
+              name: app-config
