@@ -36,12 +36,12 @@ spec:
           initialDelaySeconds: 20
           periodSeconds: 6
           timeoutSeconds: 5
-          failureThreshold: 
+          failureThreshold: 1
         readinessProbe:
           exec:
             command:
               - sh
               - -c
               - "netstat -tuln | grep 3000 || exit 1"
-          initialDelaySeconds: 5
-          periodSeconds: 10
+          initialDelaySeconds: 20
+          periodSeconds: 6
