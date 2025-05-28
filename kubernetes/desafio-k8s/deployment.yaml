@@ -20,3 +20,28 @@ spec:
         envFrom:
           - configMapRef:
               name: app-config
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "256Mi" 
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+        livenessProbe:
+          exec:
+            command:
+              - sh
+              - -c
+              - "netstat -tuln | grep 3000 || exit 1"
+          initialDelaySeconds: 20
+          periodSeconds: 6
+          timeoutSeconds: 5
+          failureThreshold: 
+        readinessProbe:
+          exec:
+            command:
+              - sh
+              - -c
+              - "netstat -tuln | grep 3000 || exit 1"
+          initialDelaySeconds: 5
+          periodSeconds: 10
