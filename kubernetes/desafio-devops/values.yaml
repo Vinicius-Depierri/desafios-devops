@@ -1,0 +1,5 @@
+app:
+  replicas: 1
+  image:
+    repository: "desafio-devops"
+    tag: "v1"
