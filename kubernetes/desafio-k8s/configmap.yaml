@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: desafio-config
-  namespace: app-desafio
-data:
-  NAME: "Vinicius"
