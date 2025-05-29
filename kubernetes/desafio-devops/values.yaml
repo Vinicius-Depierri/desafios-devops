@@ -32,7 +32,8 @@ service:
 
 ingress:
   enabled: true
-  path: "desafio-devops"
+  path: "desafio-devops" 
+  className: "nginx"
 
 ingress-nginx:
   enabled: true

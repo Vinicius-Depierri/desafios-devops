@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Release.Name }}
-  namespace: {{ .Release.Namespace | default "app-desafio"  }}
+  namespace: app-desafio
 spec:
   replicas: {{ .Values.app.replicas }}
   selector:
