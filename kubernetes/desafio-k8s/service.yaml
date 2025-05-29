@@ -5,10 +5,10 @@ metadata:
   namespace: app-desafio
 spec:
   selector:
-    app: desafio
+    app: deployment-desafio
   ports:
   - port: 80
     targetPort: 3000
     name: http
     protocol: TCP
-  type: NodePort
+  type: ClusterIP

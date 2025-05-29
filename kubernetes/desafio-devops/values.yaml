@@ -1,5 +1,45 @@
 app:
   replicas: 1
+  containerPort: 3000
   image:
     repository: "desafio-devops"
     tag: "v1"
+  service:
+    port: 80
+    targetPort: 3000
+    type: ClusterIP
+  name: "Vinicius"
+  resources:
+    limits:
+      cpu: "500m"
+      memory: "256Mi"
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+  probes:
+    liveness:
+      initialDelay: 15
+      period: 10
+      timeout: 5
+      failures: 3
+    readiness:
+      initialDelay: 15
+      period: 10
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  path: "desafio-devops"
+
+ingress-nginx:
+  enabled: true
+  controller:
+    service:
+      type: NodePort
+      nodePorts:
+        http: 30000
+    admissionWebhooks:
+      enabled: false  # Desative se não for usar webhooks
