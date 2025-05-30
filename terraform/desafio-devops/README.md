@@ -33,9 +33,9 @@
 
 ---
 
-## 🧠 Processo de Resolução
+## 🔍 Processo de Resolução
 
-1. **Estrutura modular**: utilizei os módulos da comunidade (`terraform-aws-modules`) para manter o projeto limpo, reutilizável e próximo das boas práticas.
+1. **Módulos**: utilizei os módulos da comunidade (`terraform-aws-modules`) para manter o projeto limpo, reutilizável e próximo das boas práticas.
 2. **VPC customizada**: criei uma VPC com subnet pública e ACL padrão para permitir comunicação externa.
 3. **Instância EC2**:
    - AMI pública do Ubuntu.
