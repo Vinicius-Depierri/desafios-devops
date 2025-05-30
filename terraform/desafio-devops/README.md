@@ -39,6 +39,7 @@
 2. **VPC customizada**:
    - Criação de uma VPC com subnet pública e ACL padrão para permitir comunicação externa.
    - Foi usado um `data source` para obter a zona de disponibilidade da região definida, tornando o projeto mais flexível.
+   - **OBS**: Não foi utilizado o parâmetro `default` na variável `provider_region` para exigir o valor quando o comando **Apply** for executado.
 3. **Instância EC2**:
    - AMI pública do Ubuntu.
    - Tipo `t2.micro` para se manter dentro do tier gratuito.
@@ -47,10 +48,11 @@
 4. **Segurança**:
    - Porta 22 liberada apenas para IPs definidos via variável (`ip_range_ssh`).
    - Portas 80 e 443 liberadas para todos os IPs (necessário para acesso HTTP/HTTPS).
+   - - **OBS**: Não foi utilizado o parâmetro `default` na variável `ip_range_ssh` para exigir o valor quando o comando **Apply** for executado.
 5. **Boas práticas**:
    - Utilização de outputs para retornar o IP da instância.
    - Separação de arquivos (`main.tf`, `outputs.tf`, `variables.tf`, `providers.tf`).
-   - Inclusão de `user_data_replace_on_change = true` para atualizar o script de inicialização em caso de mudanças.
+   - Inclusão de `user_data_replace_on_change = true` para recriar automaticamente a instância quando o houver alterações no `user_data`.
 
 ---
 
@@ -72,7 +74,7 @@
    terraform apply
    ```
 
-2. Assim que for executado os comandos, pedirá para inserir o valor das variáveis `provider_region` e `ip_range_ssh`.
+2. Quando os comandos **Plan** e **Apply** forem executados, será necessário inserir o valor das variáveis `provider_region` e `ip_range_ssh`.
 
 3. Após o provisionamento, o IP público da instância será exibido no terminal:
 
