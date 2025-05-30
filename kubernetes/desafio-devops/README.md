@@ -87,10 +87,12 @@
 
    - Ao final da execução do script será mostrado a URL para acessar a aplicação:
      `URL: http://$(minikube ip)/desafio-devops`
+   - Como o Minikube roda em uma VM com IP próprio e expõe os serviços NodePort em portas altas (ex: 30000), utilize `sudo socat TCP-LISTEN:80,fork TCP:<minikube ip>:30000` para fazer o redirecionamento.
    - Acesse a aplicação via navegador:  
-     `http://<minikube-ip>/desafio-devops`
+     `http://localhost/desafio-devops`
+     
 
-   A aplicação irá responder:
+3. A aplicação irá responder:
    ```
    Olá Vinicius!
    ```
