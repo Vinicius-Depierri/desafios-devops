@@ -26,6 +26,8 @@
 ├── outputs.tf
 ├── providers.tf
 ├── variables.tf
+├── terraform.tfvars
+├── data.tf
 └── README.md
 ```
 
