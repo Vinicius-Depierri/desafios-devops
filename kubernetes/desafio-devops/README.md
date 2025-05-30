@@ -1,15 +1,13 @@
 # 💻 Desafio DevOps com Helm e Kubernetes
 
-Este projeto consiste em uma aplicação Node.js containerizada e implantada em um cluster Kubernetes utilizando Helm Charts. A aplicação responde com uma saudação personalizada utilizando uma variável de ambiente.
-
 ## 🎯 Objetivo
 
-- Construir a imagem docker da aplicação
-- Criar os manifestos de recursos kubernetes para rodar a aplicação (`deployments`, `services`, `ingresses`, `configmap` e qualquer outro que você considere necessário)
+- Construir a imagem docker da aplicação.
+- Criar os manifestos de recursos kubernetes para rodar a aplicação (`deployments`, `services`, `ingresses`, `configmap` e qualquer outro que você considere necessário).
 - Criar um **script** para a execução do deploy em uma única execução.
-- A aplicação deve ter seu deploy realizado com uma **única linha de comando** em um cluster kubernetes local
-- Todos os pods devem estar rodando
-- A aplicação deve responder à uma **URL específica** configurada no ingress
+- A aplicação deve ter seu deploy realizado com uma **única linha de comando** em um cluster kubernetes local.
+- Todos os pods devem estar rodando.
+- A aplicação deve responder à uma **URL específica** configurada no ingress.
 
 ---
 
@@ -37,14 +35,14 @@ Este projeto consiste em uma aplicação Node.js containerizada e implantada em 
 ## 🔍 Processo de Resolução
 
 1. **Criação do Helm Chart**
-   - Adotei Helm Charts para padronizar a implantação e permitir configuração dinâmica através de valores.
-   - Organizei os templates seguindo as melhores práticas de separação de responsabilidades.
-   - Utilizei um ConfigMap para definir a variável de ambiente NAME para meu nome.
-   - Configurei um Service do tipo ClusterIP para comunicação interna entre pods.
-   - Implementei Ingress com NGINX Controller para roteamento externo, incluindo:
-      - Path específico (/desafio-devops) para isolamento de rotas
-      - Rewrite rules para substituição do nome via annotation
-   - Integrei o Ingress-Nginx como subchart para garantir a instalação automática.
+   - Adoção de Helm Charts para padronizar a implantação e permitir configuração dinâmica através de valores.
+   - Organização dos templates seguindo as melhores práticas de separação de responsabilidades.
+   - Criação de um ConfigMap para definir a variável de ambiente NAME para meu nome.
+   - Criação de um Service do tipo ClusterIP para comunicação interna entre pods.
+   - Implementação do Ingress com NGINX Controller para roteamento externo, incluindo:
+      - Path específico (/desafio-devops) para isolamento de rotas.
+      - Rewrite rules para substituição do nome via annotation.
+   - Integração do Ingress-Nginx como subchart para garantir a instalação automática.
 
 2. **Probes e Recursos**
    - Adição de `liveness` e `readiness probes` para garantir alta disponibilidade.
@@ -61,13 +59,13 @@ Este projeto consiste em uma aplicação Node.js containerizada e implantada em 
    - Configuração no `values.yaml` permite ativar/desativar e customizar o Ingress.
 
 5. **Boas Práticas**
-   - Isolamento em namespaces dedicados (app-desafio e ingress-nginx)
-   - Configuração de probes com tempos personalizados para inicialização da aplicação
-   - Controle de versão da imagem Docker através de tags
+   - Isolamento em namespaces dedicados (app-desafio e ingress-nginx).
+   - Configuração de probes com tempos personalizados para inicialização da aplicação.
+   - Controle de versão da imagem Docker através de tags.
 
 ---
 
-## 🚀 Como Utilizar a Solução
+## 🚀 Como Utilizar
 
 ### Pré-requisitos
 
@@ -87,8 +85,8 @@ Este projeto consiste em uma aplicação Node.js containerizada e implantada em 
 
 2. Acessar a aplicação:
 
-   - Ao final da execução do script será mostrado a URL para acessar a aplicação
-   `URL: http://$(minikube ip)/desafio-devops`
+   - Ao final da execução do script será mostrado a URL para acessar a aplicação:
+     `URL: http://$(minikube ip)/desafio-devops`
    - Acesse a aplicação via navegador:  
      `http://<minikube-ip>/desafio-devops`
 
@@ -97,8 +95,3 @@ Este projeto consiste em uma aplicação Node.js containerizada e implantada em 
    Olá Vinicius!
    ```
 
----
-
-## ✅ Conclusão
-
-Este projeto demonstra a capacidade de empacotar, parametrizar e implantar aplicações em Kubernetes utilizando Helm Charts, aplicando boas práticas como health checks, recursos limitados e deploy automatizado com Minikube.
