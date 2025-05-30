@@ -16,12 +16,14 @@
 ```bash
 .
 ├── app/
+│  ├── app.js
+│  └── package.json
 ├── desafio-devops/
 │  ├── chart.yaml
 │  ├── chart.lock
 │  ├── values.yaml
 │  ├── deploy.sh
-│  ├── templates/
+│  └── templates/
 │     ├── deployment.yaml
 │     ├── service.yaml
 │     ├── ingress.yaml
