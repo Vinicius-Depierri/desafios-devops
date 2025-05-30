@@ -85,6 +85,6 @@
 
 4. Acesse o IP via navegador e você verá a página padrão do Apache:
 
-```
+   ```
    http://<public ip>
    ```
