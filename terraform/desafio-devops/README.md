@@ -35,8 +35,10 @@
 
 ## 🔍 Processo de Resolução
 
-1. **Módulos**: utilizei os módulos da comunidade (`terraform-aws-modules`) para manter o projeto limpo, reutilizável e próximo das boas práticas.
-2. **VPC customizada**: criei uma VPC com subnet pública e ACL padrão para permitir comunicação externa.
+1. **Módulos**: utilização de módulos da comunidade (`terraform-aws-modules`) para manter o projeto limpo, reutilizável e próximo das boas práticas.
+2. **VPC customizada**:
+   - Criação de uma VPC com subnet pública e ACL padrão para permitir comunicação externa.
+   - Foi usado um `data source` para obter a zona de disponibilidade da região definida, tornando o projeto mais flexível.
 3. **Instância EC2**:
    - AMI pública do Ubuntu.
    - Tipo `t2.micro` para se manter dentro do tier gratuito.
@@ -80,13 +82,4 @@
    ```
 
 5. Acesse o IP via navegador e você verá a página padrão do Apache.
-
----
-
-## 📌 Extras
-
-- O Docker é instalado automaticamente via `user_data` utilizando a imagem oficial do Apache (`httpd`).
-- Foi usado um `data source` para obter a zona de disponibilidade da região definida, tornando o projeto mais flexível.
-- Todo o código foi feito considerando boas práticas.
-
 
