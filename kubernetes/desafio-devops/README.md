@@ -1,70 +1,94 @@
-# Desafio DevOps com Helm e Kubernetes
+# 💻 Desafio DevOps com Helm e Kubernetes
 
 Este projeto consiste em uma aplicação Node.js containerizada e implantada em um cluster Kubernetes utilizando Helm Charts. A aplicação responde com uma saudação personalizada utilizando uma variável de ambiente.
 
-## 🧩 Desafio
+## 🎯 Objetivo
 
-O objetivo deste desafio é criar um ambiente para a aplicação utilizando Kubernetes e Helm, utilizando Ingress, ConfigMaps, Probes e boas práticas de deploy automatizado.
-
----
-
-## 📦 Estrutura do Projeto
-
-- `app/`: Aplicação Node.js simples
-- `desafio-devops/`: Helm Chart
-- `deploy.sh`: Script para build e deploy com Minikube
-- `Dockerfile`: Container da aplicação
+- Construir a imagem docker da aplicação
+- Criar os manifestos de recursos kubernetes para rodar a aplicação (`deployments`, `services`, `ingresses`, `configmap` e qualquer outro que você considere necessário)
+- Criar um **script** para a execução do deploy em uma única execução.
+- A aplicação deve ter seu deploy realizado com uma **única linha de comando** em um cluster kubernetes local
+- Todos os pods devem estar rodando
+- A aplicação deve responder à uma **URL específica** configurada no ingress
 
 ---
 
-## 🔍 Processo de Resolução dos Desafios
+## 📁 Estrutura de Arquivos
 
-1. **Containerização da Aplicação**
-   - Criado `Dockerfile` baseado em `node:9-alpine`.
-   - A aplicação expõe a porta 3000 e retorna uma saudação com a variável `NAME`.
+```bash
+.
+├── app/
+├── desafio-devops/
+│  ├── chart.yaml
+│  ├── chart.lock
+│  ├── values.yaml
+│  ├── deploy.sh
+│  ├── templates/
+│     ├── deployment.yaml
+│     ├── service.yaml
+│     ├── ingress.yaml
+│     ├── configmap.yaml
+│     └── README.md
+└── Dockerfile
+```
 
-2. **Criação do Helm Chart**
-   - Utilizado Helm Chart com templates:
-     - `deployment.yaml`: define pods, health checks, resources e uso de `ConfigMap`.
-     - `service.yaml`: expõe a aplicação internamente via `ClusterIP`.
-     - `ingress.yaml`: mapeia o endpoint para acesso externo via `Ingress NGINX`.
-     - `configmap.yaml`: armazena a variável de ambiente `NAME`.
-     - `values.yaml`: define os valores que serão usados nas variáveis, como nome, imagem, portas, probes, ingress, etc.
+---
 
-4. **Probes e Recursos**
+## 🔍 Processo de Resolução
+
+1. **Criação do Helm Chart**
+   - Adotei Helm Charts para padronizar a implantação e permitir configuração dinâmica através de valores.
+   - Organizei os templates seguindo as melhores práticas de separação de responsabilidades.
+   - Utilizei um ConfigMap para definir a variável de ambiente NAME para meu nome.
+   - Configurei um Service do tipo ClusterIP para comunicação interna entre pods.
+   - Implementei Ingress com NGINX Controller para roteamento externo, incluindo:
+      - Path específico (/desafio-devops) para isolamento de rotas
+      - Rewrite rules para substituição do nome via annotation
+   - Integrei o Ingress-Nginx como subchart para garantir a instalação automática.
+
+2. **Probes e Recursos**
    - Adição de `liveness` e `readiness probes` para garantir alta disponibilidade.
    - Definido `requests` e `limits` de CPU/memória para a aplicação.
 
-5. **Deploy Automatizado**
+3. **Deploy Automatizado**
    - Script `deploy.sh` automatiza o processo:
      - Configura Docker para o ambiente Minikube.
      - Realiza o build da imagem localmente.
      - Executa instalação via `helm upgrade --install`.
 
-6. **Ingress Controller**
+4. **Ingress Controller**
    - Adicionada dependência do `ingress-nginx` no `Chart.yaml`.
    - Configuração no `values.yaml` permite ativar/desativar e customizar o Ingress.
+
+5. **Boas Práticas**
+   - Isolamento em namespaces dedicados (app-desafio e ingress-nginx)
+   - Configuração de probes com tempos personalizados para inicialização da aplicação
+   - Controle de versão da imagem Docker através de tags
 
 ---
 
 ## 🚀 Como Utilizar a Solução
 
-1. **Pré-requisitos**
-   - [x] Docker
-   - [x] Minikube
-   - [x] Helm 3.x
-   - [x] kubectl
+### Pré-requisitos
 
-2. **Passos para Deploy**
+   -  Docker
+   -  Minikube
+   -  Helm 3.x
+   -  kubectl
+
+### Passos
+
+1. Dar permissão de execução ao script e executá-lo:
+
    ```bash
    chmod +x deploy.sh
    ./deploy.sh
    ```
 
-3. **Acesso à aplicação**
-   Após o deploy:
-   - Obtenha o IP do Minikube:  
-     `minikube ip`
+2. Acessar a aplicação:
+
+   - Ao final da execução do script será mostrado a URL para acessar a aplicação
+   `URL: http://$(minikube ip)/desafio-devops`
    - Acesse a aplicação via navegador:  
      `http://<minikube-ip>/desafio-devops`
 
@@ -72,17 +96,6 @@ O objetivo deste desafio é criar um ambiente para a aplicação utilizando Kube
    ```
    Olá Vinicius!
    ```
-
----
-
-## 🛠 Tecnologias Utilizadas
-
-- Node.js (v9)
-- Docker
-- Kubernetes
-- Helm
-- Minikube
-- Ingress-NGINX
 
 ---
 
