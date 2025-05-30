@@ -15,7 +15,7 @@ module "vpc" {
   name = "vpc_desafio"
   cidr = "10.0.0.0/16"
 
-  azs            = ["us-east-1a"]
+  azs = [data.aws_availability_zones.available.names[0]]
   public_subnets = ["10.0.101.0/24"]
 
   #NACL

@@ -83,5 +83,8 @@
    public_instance_ip = "XX.XX.XX.XX"
    ```
 
-5. Acesse o IP via navegador e você verá a página padrão do Apache.
+4. Acesse o IP via navegador e você verá a página padrão do Apache:
 
+```
+   http://<public ip>
+   ```
